@@ -47,3 +47,38 @@ kf = KFold(n_splits=5, shuffle=True, random_state=42)
 iris_accuracies = cross_val_score(clf, iris.data, iris.target, cv=kf, scoring='accuracy')
 
 print(iris_accuracies)
+
+
+
+
+#K-means
+
+import numpy as np
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+data = np.array([[1, 1], [1.5, 1.8], [5, 8], [8, 8], [1, 0.6], [9, 11]])
+
+n_clusters = 2
+kmeans = KMeans(n_clusters=n_clusters, random_state=0)
+kmeans.fit(data)
+
+print("Cluster centroids:")
+print(kmeans.cluster_centers_)
+
+print("Assigned cluster labels:")
+print(kmeans.labels_)
+
+#DBSCAN
+
+from sklearn.cluster import DBSCAN
+dbscan = DBSCAN(eps=7, min_samples=5)
+labels = dbscan.fit_predict(data)
+np.unique(labels)
+
+#Agglomarative
+
+from sklearn.cluster import AgglomerativeClustering
+
+cluster = AgglomerativeClustering(n_clusters=5, affinity='euclidean', linkage='ward')
+labels_=cluster.fit_predict(data)
