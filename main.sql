@@ -16,8 +16,7 @@ FROM STUDENT
 WHERE StudentName LIKE 'A%';
 
 4. Retrieve students' details studying in courses ‘computer science’ or ‘chemistry’.
-sql
-Copy code
+
 SELECT *
 FROM STUDENT
 WHERE Course IN ('Computer Science', 'Chemistry');
@@ -30,9 +29,9 @@ WHERE (RollNo LIKE 'X%' OR RollNo LIKE 'Z%') AND RollNo LIKE '%9';
 
 6. Find society details with more than N TotalSeats where N is to be input by the user.
 
-
 -- Assuming N is 25
 SET @N = 25;
+
 SELECT *
 FROM SOCIETY
 WHERE TotalSeats > @N;
@@ -45,15 +44,12 @@ SET MentorName = 'New Mentor'
 WHERE SocName = 'NSS';
 
 8. Find society names in which more than five students have enrolled.
-sql
-Copy code
+
 SELECT s.SocName
 FROM SOCIETY s
 JOIN ENROLLMENT e ON s.SocID = e.SID
 GROUP BY s.SocName
 HAVING COUNT(*) > 5;
-
-
 
 9. Find the name of the youngest student enrolled in society ‘NSS’.
 
@@ -87,8 +83,7 @@ LIMIT 2;
 
 
 12. Find the student names who are not enrolled in any society.
-sql
-Copy code
+
 SELECT StudentName
 FROM STUDENT
 WHERE RollNo NOT IN (SELECT RollNo FROM ENROLLMENT);
@@ -96,8 +91,7 @@ WHERE RollNo NOT IN (SELECT RollNo FROM ENROLLMENT);
 
 
 13. Find the student names enrolled in at least two societies.
-sql
-Copy code
+
 SELECT s.StudentName
 FROM STUDENT s
 JOIN ENROLLMENT e ON s.RollNo = e.RollNo
@@ -107,8 +101,7 @@ HAVING COUNT(*) >= 2;
 
 
 14. Find society names in which maximum students are enrolled.
-sql
-Copy code
+
 SELECT s.SocName
 FROM SOCIETY s
 JOIN ENROLLMENT e ON s.SocID = e.SID
@@ -178,26 +171,16 @@ LEFT JOIN (
 ) e ON s.SocID = e.SID;
 
 
-
-
-
-
-
-
 20. Increment Total Seats of each society by 10%.
-
 
 UPDATE SOCIETY
 SET TotalSeats = TotalSeats * 1.1;
 
 
-
 21. Add the enrollment fees paid (‘yes’/’No’) field in the enrollment table.
-
 
 ALTER TABLE ENROLLMENT
 ADD COLUMN FeesPaid ENUM('Yes', 'No') DEFAULT 'No';
-
 
 
 22. Update date of enrollment of society id ‘s1’ to ‘2018-01-15’, ‘s2’ to current date and ‘s3’ to ‘2018-01-02’.
@@ -211,7 +194,6 @@ SET DateOfEnrollment = CASE
 END;
 
 
-
 23. Create a view to keep track of society names with the total number of students enrolled in it.
 
 CREATE VIEW SocietyEnrollmentCount AS
@@ -219,9 +201,6 @@ SELECT soc.SocName, COUNT(*) AS EnrollmentCount
 FROM SOCIETY soc
 JOIN ENROLLMENT e ON soc.SocID = e.SID
 GROUP BY soc.SocName;
-
-
-
 
 
 24. Find student names enrolled in all the societies.
@@ -240,7 +219,6 @@ WHERE NOT EXISTS (
 );
 
 
-
 25. Count the number of societies with more than 5 students enrolled in it.
 
 SELECT COUNT(*)
@@ -252,36 +230,25 @@ FROM (
 ) AS Subquery;
 
 
-
 26. Add column Mobile number in student table with default value ‘9999999999’.
-
 
 ALTER TABLE STUDENT
 ADD COLUMN Mobile VARCHAR(15) DEFAULT '9999999999';
 
 
-
 27. Find the total number of students whose age is > 20 years.
-
 
 SELECT COUNT(*)
 FROM STUDENT
 WHERE TIMESTAMPDIFF(YEAR, DOB, CURDATE()) > 20;
 
 
-
-
-
 28. Find names of students who are born in 2001 and are enrolled in at least one society.
-
 
 SELECT DISTINCT s.StudentName
 FROM STUDENT s
 JOIN ENROLLMENT e ON s.RollNo = e.RollNo
 WHERE YEAR(s.DOB) = 2001;
-
-
-
 
 
 29. Count all societies whose name starts with ‘S’ and ends with ‘t’ and at least 5 students are enrolled in the society.
@@ -299,8 +266,6 @@ FROM (
 ) AS Subquery;
 
 
-
-
 30. Display the following information: Society name, Mentor name, Total Capacity, Total Enrolled, Unfilled Seats.
 
 SELECT soc.SocName, soc.MentorName, soc.TotalSeats, IFNULL(e.EnrolledCount, 0) AS TotalEnrolled, (soc.TotalSeats - IFNULL(e.EnrolledCount, 0)) AS UnfilledSeats
@@ -311,10 +276,7 @@ LEFT JOIN (
     GROUP BY SID
 ) e ON soc.SocID = e.SID;
 
-
-
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
 
 Q2
 
@@ -354,27 +316,7 @@ To create an index on a table in MySQL:
 
 CREATE INDEX index_name ON table_name (column_name);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-
 
 Q4
 
